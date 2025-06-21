@@ -9,9 +9,10 @@ PKG_VERSION:=$(shell date "+%Y.%m.%d")
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/daeuniverse/dae.git
+#PKG_SOURCE_URL:=https://github.com/daeuniverse/dae.git
+PKG_SOURCE_URL:=https://github.com/davidtall/dae.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(shell git ls-remote $(PKG_SOURCE_URL) HEAD)
+PKG_SOURCE_VERSION:=$(shell git ls-remote $(PKG_SOURCE_URL) HEAD | cut -c1-7)
 PKG_MIRROR_HASH:=skip
 
 PKG_LICENSE:=AGPL-3.0-only
@@ -25,7 +26,7 @@ PKG_BUILD_FLAGS:=no-mips16
 GO_PKG:=github.com/daeuniverse/dae
 GO_PKG_EXCLUDES:=control/kern/tests
 GO_PKG_LDFLAGS_X:= \
-	$(GO_PKG)/cmd.Version=$(shell echo $(PKG_SOURCE_VERSION) HEAD | cut -c1-7) \
+	$(GO_PKG)/cmd.Version=$(PKG_SOURCE_VERSION) \
 	$(GO_PKG)/common/consts.MaxMatchSetLen_=1024
 GO_PKG_TAGS:=trace
 
@@ -33,7 +34,7 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/bpf.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-UNZIP_CMD:=unzip -q -d $(PKG_BUILD_DIR) $(DL_DIR)/$(PKG_SOURCE)
+TAR_CMD=$(HOST_TAR) -C $(BUILD_DIR)/ $(TAR_OPTIONS)
 
 define Package/dae/Default
   SECTION:=net
@@ -69,6 +70,16 @@ define Package/dae/conffiles
 /etc/dae/config.dae
 /etc/config/dae
 endef
+
+#define Build/Prepare
+#	( \
+		rm -rf $(PKG_BUILD_DIR) && git clone https://github.com/daeuniverse/dae $(PKG_BUILD_DIR) && git -C $(PKG_BUILD_DIR) checkout master ; \
+		pushd $(PKG_BUILD_DIR) ; \
+		git submodule update --init ; \
+		go mod tidy ; \
+		popd ; \
+	)
+#endef
 
 DAE_CFLAGS:= \
 	-O2 -Wall -Werror \
