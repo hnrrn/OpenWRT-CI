@@ -4,7 +4,7 @@ CONFIG_PACKAGE_luci-app-dae=y
 
 #增加插件
 CONFIG_PACKAGE_luci-app-autoreboot=y
-CONFIG_PACKAGE_luci-app-upnp=y
+
 CONFIG_PACKAGE_luci-app-dufs=y
 
 CONFIG_PACKAGE_luci-app-ksmbd=y
@@ -17,7 +17,7 @@ CONFIG_PACKAGE_luci-proto-wireguard=y
 CONFIG_PACKAGE_luci-app-zerotier=y
 CONFIG_PACKAGE_luci-app-vlmcsd=y
 CONFIG_PACKAGE_luci-app-wechatpush=y
-CONFIG_PACKAGE_luci-app-ipsec-vpnd=y
+CONFIG_PACKAGE_luci-app-upnp=y
 
 CONFIG_PACKAGE_luci-app-cpufreq=y
 #CONFIG_PACKAGE_luci-app-nginx-manager=y
