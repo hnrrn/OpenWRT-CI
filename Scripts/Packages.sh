@@ -58,7 +58,7 @@ UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
 UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 #UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
-#UPDATE_PACKAGE "passwall" "Openwrt-Passwall/openwrt-passwall" "main" "pkg"
+UPDATE_PACKAGE "passwall" "Openwrt-Passwall/openwrt-passwall" "main" "pkg"
 #UPDATE_PACKAGE "passwall2" "Openwrt-Passwall/openwrt-passwall2" "main" "pkg"
 
 #UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
@@ -137,7 +137,7 @@ if [ -f "$GITHUB_WORKSPACE/Scripts/PRIVATE.sh" ]; then
 fi
 
 #删除官方的默认插件
-rm -rf ../feeds/luci/applications/luci-app-{mosdns,dae*,bypass*}
+rm -rf ../feeds/luci/applications/luci-app-{passwall*,mosdns,dae*,bypass*}
 rm -rf ../feeds/packages/net/{v2ray-geodata,dae*}
 
 cp -r $GITHUB_WORKSPACE/package/v2ray-geodata ./
