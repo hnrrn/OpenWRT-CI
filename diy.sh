@@ -42,6 +42,7 @@ export WRT_TARGET=$(grep -m 1 -oP '^CONFIG_TARGET_\K[\w]+(?=\=y)' $GITHUB_WORKSP
 if [ ! -d $WRT_DIR ]; then
   git clone --depth=1 --single-branch --branch $WRT_BRANCH $WRT_REPO $WRT_DIR
   cd $WRT_DIR
+  git checkout 71e991a8c01af94fb1fd6d6e4e2d259ce0ff36da
 else
   cd $WRT_DIR
   git remote set-url origin $WRT_REPO
